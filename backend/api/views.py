@@ -2,13 +2,15 @@ import contextlib
 import json
 from django.http import JsonResponse
 
+from product.models import Product
+
 
 def api_home(request, *args, **kwargs):
-    body = request.body
+    model_data = Product.objects.all().order_by('?').first()
     data = {}
-    with contextlib.suppress(Exception):
-        data = json.loads(body)
-    data['headers'] = dict(request.headers)
-    data['params'] = dict(request.GET)
-    data['content_type'] = request.content_type
+    if model_data:
+        data['id'] = model_data.id
+        data['title'] = model_data.title
+        data['content'] = model_data.content
+        data['price'] = model_data.price
     return JsonResponse(data)
