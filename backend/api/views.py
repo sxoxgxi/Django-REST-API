@@ -27,8 +27,9 @@ def addData(request, *args, **kwargs):
     Add data to the database.
     """
     serializer = ProductSerializer(data=request.data)
-    if serializer.is_valid():
+    if serializer.is_valid(raise_exception=True):
         serializer.save()
         print(serializer.data)
         data = serializer.data
         return Response(data)
+    return Response({"invalid": "Not a valid data"}, status=400)
