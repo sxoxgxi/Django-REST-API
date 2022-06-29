@@ -2,7 +2,6 @@ from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from yaml import serialize
 
 
 from product.models import Product

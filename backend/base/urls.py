@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+
+def home(request):
+    return HttpResponse("<a href='http://localhost:8000/api'>Api</a>")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls'))
+    path('api/', include('api.urls')),
+    path('api/products/', include('product.urls')),
+    path('', home, name='home'),
 ]
